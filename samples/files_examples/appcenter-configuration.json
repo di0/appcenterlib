@@ -1,0 +1,54 @@
+{
+    "globalConfiguration": {
+        "appCenterUrl": "https://api.appcenter.ms/v0.1/"
+    },
+
+    "environment": {
+        "hml": {
+            "apiToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+            "ownerName": "foo",
+            "appName": "foo-HML",
+            "appCenterUrl": "https://api.appcenter.ms/v0.1",
+            "template": ["# Build Purpose:",
+                "",
+                "%s",
+                "",
+                "# Changes:",
+                "",
+                "%s",
+                "",
+                "**Developer/Author**: *%s*",
+                "",
+                "**branch**: *%s*",
+                "",
+                "**commit**: %s"
+            ],
+            "file": "/home/foo/Projects/app-foo-android/app/hml/release/app-hml-release.apk",
+            "destinations": ["Analytics", "Security"]
+        },
+
+        "ti": {
+            "apiToken": "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+            "ownerName": "foo",
+            "appName": "foo-TI",
+            "appCenterUrl": "https://api.appcenter.ms/v0.1",
+            "template": ["# Build Purpose:",
+                "",
+                "%s",
+                "",
+                "# Changes:",
+                "",
+                "%s",
+                "",
+                "**Developer/Author**: *%s*",
+                "",
+                "**branch**: *%s*",
+                "",
+                "**commit**: %s"
+            ],
+            "file": "/home/foo/Projects/app-foo-android/app/ti/release/app-ti-release.apk",
+            "destinations": ["Analytics"]
+        }
+    }
+}
+

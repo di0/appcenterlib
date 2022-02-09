@@ -1,0 +1,6 @@
+**Alter module fake.
+Just another line.
+
+**Modified template fake.
+
+**Added feature fake.

@@ -1,0 +1,29 @@
+{
+    "globalConfiguration": {
+        "appCenterUrl": "https://api.appcenter.ms/v0.1/"
+    },
+
+    "environment": {
+        "hml": {
+            "ownerName": "fooName",
+            "appName": "barName",
+            "apiToken": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+            "template": ["# Build Purpose:",
+                "",
+                "%s",
+                "",
+                "# Modifications:",
+                "",
+                "%s",
+                "",
+                "**Developer owner**: *%s*",
+                "",
+                "**branch**: *%s*",
+                "",
+                "**commit**: %s"
+            ],
+            "file": "/tmp/app-foo-hml-debug.apk"
+        }
+    }
+}
+
