@@ -16,12 +16,12 @@ class ReleaseNoteGeneratorTest {
     fun `should split text according defined wildcard pattern`() {
         every { fileReader.readLinesToList<String>() } returns linesRead()
 
-        var currentOutputText = String()
+        var actualOutputText = String()
         ReleaseNoteGenerator.fromFile(fileReader) { resultAfterRead ->
-            currentOutputText = resultAfterRead
+            actualOutputText = resultAfterRead
         }
 
-        Assertions.assertEquals(expectedOutputText(), currentOutputText)
+        Assertions.assertEquals(expectedOutputText(), actualOutputText)
     }
 
     private fun linesRead(): List<String> {

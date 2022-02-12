@@ -2,40 +2,40 @@ package com.develdio.appcenterms.distribute.helper
 
 object ReleaseNoteGenerator {
     private var buffer: StringBuffer = StringBuffer()
-    private var changes: StringBuilder = StringBuilder()
+    private val contentRead: StringBuilder = StringBuilder()
     private const val DEFAULT_WILDCARD_PREFIX = "**"
     private const val START_INDEX = 2
     private const val INITIAL_LINE = 0
 
     fun fromFile(fileReader: FileReader, afterProcessed: (String) -> Unit) {
         val lines = fileReader.readLinesToList<String>()
-        lines.forEachIndexed { numberLine, line ->
+        lines.forEachIndexed { currentLine, line ->
             if (line.startsWith(DEFAULT_WILDCARD_PREFIX)) {
-                val lineWithoutAsterisk = line.substring(START_INDEX,
+                val lineWithoutWildCard = line.substring(START_INDEX,
                     line.length
                 )
-                if (numberLine == INITIAL_LINE) {
-                    buffer.appendLine(lineWithoutAsterisk)
+                if (currentLine == INITIAL_LINE) {
+                    buffer.appendLine(lineWithoutWildCard)
                 } else {
-                    changes.append(buffer.toCustomString())
+                    contentRead.append(buffer.toCustomString())
                     buffer.setLength(0)
-                    buffer.appendLine(lineWithoutAsterisk)
-                    if (isFinalLine(numberLine, lines)) {
-                        changes.append(buffer.toCustomString())
+                    buffer.appendLine(lineWithoutWildCard)
+                    if (isFinalLine(currentLine, lines)) {
+                        contentRead.append(buffer.toCustomString())
                     }
                 }
             } else {
                 buffer.appendLine(line)
-                if (isFinalLine(numberLine, lines)) {
-                    changes.append(buffer.toCustomString())
+                if (isFinalLine(currentLine, lines)) {
+                    contentRead.append(buffer.toCustomString())
                 }
             }
         }
-        afterProcessed(changes.toString())
+        afterProcessed(contentRead.toString())
     }
 
-    private fun isFinalLine(numberLine: Int, lines: List<String>): Boolean {
-        return (numberLine == (lines.size - 1))
+    private fun isFinalLine(currentLine: Int, lines: List<String>): Boolean {
+        return (currentLine == (lines.size - 1))
     }
 
     private fun StringBuffer.appendLine(s: String) {
