@@ -13,14 +13,15 @@ class ReleaseNoteGeneratorTest {
     private lateinit var fileReader: FileReader
 
     @Test
-    fun `should split text according defined pattern`() {
+    fun `should split text according defined wildcard pattern`() {
         every { fileReader.readLinesToList<String>() } returns linesRead()
 
-        val sb = StringBuilder()
-        ReleaseNoteGenerator.fromFile(fileReader, sb)
+        var currentOutputText = String()
+        ReleaseNoteGenerator.fromFile(fileReader) { resultAfterRead ->
+            currentOutputText = resultAfterRead
+        }
 
-        Assertions.assertEquals(expectedOutputText(),
-            sb.toString())
+        Assertions.assertEquals(expectedOutputText(), currentOutputText)
     }
 
     private fun linesRead(): List<String> {

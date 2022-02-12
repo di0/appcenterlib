@@ -6,7 +6,9 @@ import com.develdio.appcenterms.distribute.helper.ReleaseNoteGenerator
 
 class ReleaseNote(private val note: NoteCreator) {
     fun createTemplate(): String {
-        ReleaseNoteGenerator.fromFile(FileReader(note.filePathWithReasonDescription!!), note.changes)
+        ReleaseNoteGenerator.fromFile(FileReader(note.filePathWithReasonDescription!!)) {
+            note.changes.appendln(it)
+        }
 
         note.reasons.forEach { reason ->
             note.changes.appendln("\t• $reason")

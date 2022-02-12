@@ -27,7 +27,7 @@ class AppReleaserStageTest {
 
     @Test
     fun `should order by release id an unordered list of releases`() {
-        every {  releaseClient.allVersion() } returns unorderedReleaseList()
+        every { releaseClient.allVersion() } returns unorderedReleaseList()
 
         val orderedList = appReleaser.orderReleaseListById()
         assertEquals(orderedList?.get(0)?.id, "58")

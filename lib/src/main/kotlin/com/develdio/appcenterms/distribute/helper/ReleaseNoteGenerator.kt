@@ -1,12 +1,13 @@
 package com.develdio.appcenterms.distribute.helper
 
 object ReleaseNoteGenerator {
-    private var sb: StringBuffer = StringBuffer()
+    private var buffer: StringBuffer = StringBuffer()
+    private var changes: StringBuilder = StringBuilder()
     private const val DEFAULT_WILDCARD_PREFIX = "**"
     private const val START_INDEX = 2
     private const val INITIAL_LINE = 0
 
-    fun fromFile(fileReader: FileReader, changes: StringBuilder) {
+    fun fromFile(fileReader: FileReader, afterProcessed: (String) -> Unit) {
         val lines = fileReader.readLinesToList<String>()
         lines.forEachIndexed { numberLine, line ->
             if (line.startsWith(DEFAULT_WILDCARD_PREFIX)) {
@@ -14,22 +15,23 @@ object ReleaseNoteGenerator {
                     line.length
                 )
                 if (numberLine == INITIAL_LINE) {
-                    sb.appendLine(lineWithoutAsterisk)
+                    buffer.appendLine(lineWithoutAsterisk)
                 } else {
-                    changes.append(sb.toCustomString())
-                    sb.setLength(0)
-                    sb.appendLine(lineWithoutAsterisk)
+                    changes.append(buffer.toCustomString())
+                    buffer.setLength(0)
+                    buffer.appendLine(lineWithoutAsterisk)
                     if (isFinalLine(numberLine, lines)) {
-                        changes.append(sb.toCustomString())
+                        changes.append(buffer.toCustomString())
                     }
                 }
             } else {
-                sb.appendLine(line)
+                buffer.appendLine(line)
                 if (isFinalLine(numberLine, lines)) {
-                    changes.append(sb.toCustomString())
+                    changes.append(buffer.toCustomString())
                 }
             }
         }
+        afterProcessed(changes.toString())
     }
 
     private fun isFinalLine(numberLine: Int, lines: List<String>): Boolean {
